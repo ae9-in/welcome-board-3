@@ -1,0 +1,51 @@
+# Welcome Onboard Project - Claude Guide
+
+## Project Overview
+This is a premium competitions platform for school students featuring:
+- Six academic/creative competitions (Spell Bee, Handwriting, AI & Tech, Math Quiz, GK Quiz, Art & Craft)
+- Gamified registration system with unlockable rewards (₹1,499 offer)
+- Event idea submission system
+- Admin dashboard for managing submissions
+- Sophisticated motion design with Framer Motion, GSAP, and custom effects
+
+## Key Technical Details
+- **Stack**: TanStack Start + React + TypeScript + Tailwind v4 + shadcn/ui (customized)
+- **State Management**: TanStack Query
+- **Routing**: TanStack Router (file-based)
+- **Animations**: Framer Motion (primary), GSAP + ScrollTrigger for specific effects
+- **Backend**: Lovable Cloud (managed Postgres + Auth) with RLS
+- **Design System**: Custom tokens using OKLCH color space
+
+## Important Files & Directories
+- `/src/routes/` - All page components (index.tsx, register.tsx, admin/*.tsx)
+- `/src/components/site/` - Main website components (Hero, Navbar, Footer, etc.)
+- `/src/components/effects/` - Custom animation components (PulloutReveal, Lanyard, etc.)
+- `/src/lib/` - Utility functions and Supabase integrations
+- `/src/styles.css` - Tailwind configuration with custom theme tokens
+- `/.lovable/plan.md` - Original build plan with technical decisions
+
+## Development Guidelines
+1. **Motion Effects**: Respect `prefers-reduced-motion` - disable parallax, marquee, climber when enabled
+2. **Theme System**: Light theme by default, uses OKLCH colors via `@theme inline` in styles.css
+3. **Fonts**:
+   - Display: Bricolage Grotesque
+   - Body: Inter
+   - Mono: JetBrains Mono
+4. **Accent Color**: `#FF4D2E` (accent-brand) reserved for CTAs, hover states, offer unlock
+5. **Animation Principles**:
+   - PulloutReveal for section transitions (min 700ms, max 1.4s)
+   - Ladder scrollbar binds to scrollY via GSAP ScrollTrigger
+   - Staggered animations with [0.16, 1, 0.3, 1] easing curve
+6. **Database** (via Lovable Cloud):
+   - `event_ideas`: Stores student-submitted event suggestions
+   - `registrations`: Tracks competition selections and offer status
+   - `competitions`: Pre-seeded with the six competition types
+7. **Admin Access**: Role-based via `user_roles` table, no public sign-up surface
+
+## When Assisting With This Project
+- Prioritize understanding existing animation patterns before adding new motion effects
+- Check `.lovable/plan.md` for original architectural decisions
+- Maintain consistency with the custom design system tokens in styles.css
+- When modifying routes, remember to check both the route file and the auto-generated routeTree.gen.ts
+- For Supabase functions, look in `/src/lib/*functions.ts`
+- Respect the established file organization and naming conventions

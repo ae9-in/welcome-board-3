@@ -1,0 +1,158 @@
+/* ═══════════════════════════════════════════════
+   MOBILE & PHONE VIEW OPTIMIZATION OVERRIDES
+   Exclusively targets screens under 768px wide.
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  /* ─── Page Section Spacings ─── */
+  section,
+  #why,
+  #competitions,
+  #create-event {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+
+  /* ─── Typography Scales ─── */
+  h1, h2 {
+    text-align: center !important;
+  }
+
+  /* ─── Hero Section Mobile Alignments ─── */
+  .font-display.block.text-6xl {
+    font-size: clamp(3.2rem, 12vw, 4.8rem) !important;
+    line-height: 1.05 !important;
+  }
+
+  h1.font-display.text-3xl {
+    font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+  }
+
+  /* Shrink hero logo slightly on small phone screens for layout balance */
+  .relative.z-10 img.h-48.w-48 {
+    width: 140px !important;
+    height: 140px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* ─── Why Competitions Section Mobile Alignments ─── */
+  #why {
+    text-align: center !important;
+  }
+
+  #why .font-mono-meta {
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+  }
+
+  #why h2 {
+    font-size: clamp(2rem, 7vw, 2.6rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 16px !important;
+  }
+
+  #why p,
+  #why .text-lg {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+  }
+
+  /* Shrink Three.js Lanyard container on mobile so it fits the viewport elegantly */
+  #why .relative.h-\[600px\] {
+    height: 420px !important;
+    margin-top: 16px !important;
+  }
+
+  /* ─── Competitions Grid Section Mobile Alignments ─── */
+  #competitions .font-mono-meta {
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+  }
+
+  #competitions h2 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem) !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+    margin-bottom: 32px !important;
+  }
+
+  #competitions .grid {
+    gap: 16px !important;
+    max-width: 420px !important;
+    margin: 0 auto !important;
+  }
+
+  /* ─── Create Event Section Mobile Alignments ─── */
+  #create-event {
+    text-align: center !important;
+  }
+
+  #create-event .font-mono-meta {
+    justify-content: center !important;
+  }
+
+  #create-event h2 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem) !important;
+    line-height: 1.25 !important;
+  }
+
+  #create-event p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+  }
+
+  #create-event form {
+    max-width: 440px !important;
+    margin: 32px auto 0 !important;
+    text-align: left !important;
+  }
+
+  /* Adjust form inputs to look comfortable on mobile */
+  #create-event label span {
+    font-size: 13px !important;
+  }
+
+  #create-event input,
+  #create-event textarea {
+    font-size: 15px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* ─── Registration Page Mobile Alignments ─── */
+  .container.mx-auto.px-6.pb-32.pt-32 {
+    padding-top: 100px !important;
+    padding-bottom: 64px !important;
+  }
+
+  h1.font-display.max-w-3xl {
+    font-size: clamp(2rem, 7vw, 3rem) !important;
+    text-align: center !important;
+    line-height: 1.15 !important;
+  }
+
+  .container.mx-auto .font-mono-meta {
+    justify-content: center !important;
+  }
+
+  /* Stack main grid columns on mobile */
+  .mt-10.flex.flex-col {
+    gap: 24px !important;
+  }
+
+  /* Center the selected count bar */
+  .flex-1.min-w-0.space-y-5 {
+    width: 100% !important;
+  }
+
+  .mt-10.flex.flex-col .grid {
+    gap: 12px !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+  }
+}
