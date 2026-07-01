@@ -61,10 +61,7 @@ export function HorizontalTextReveal({
           key={`${word}-${i}`}
           className="mr-[0.25em] inline-block overflow-hidden align-bottom"
         >
-          <motion.span
-            className="inline-block will-change-transform"
-            variants={child}
-          >
+          <motion.span className="inline-block will-change-transform" variants={child}>
             {word}
           </motion.span>
         </span>

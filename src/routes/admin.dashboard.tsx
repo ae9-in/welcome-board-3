@@ -25,7 +25,10 @@ function AdminDashboard() {
 
   useEffect(() => {
     let isMockAdmin = false;
-    if (typeof window !== "undefined" && window.localStorage.getItem("mock_admin_session") === "mock.admin.token") {
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("mock_admin_session") === "mock.admin.token"
+    ) {
       isMockAdmin = true;
     }
     if (!isMockAdmin) {
@@ -35,18 +38,18 @@ function AdminDashboard() {
     }
   }, [navigate]);
 
-  const ideas = useQuery({ 
-    queryKey: ["admin", "ideas"], 
-    queryFn: () => getIdeas(), 
+  const ideas = useQuery({
+    queryKey: ["admin", "ideas"],
+    queryFn: () => getIdeas(),
     enabled: ready,
-    refetchInterval: 4000 // Real-time auto-polling every 4 seconds
+    refetchInterval: 4000, // Real-time auto-polling every 4 seconds
   });
-  
-  const regs = useQuery({ 
-    queryKey: ["admin", "regs"], 
-    queryFn: () => getRegs(), 
+
+  const regs = useQuery({
+    queryKey: ["admin", "regs"],
+    queryFn: () => getRegs(),
     enabled: ready,
-    refetchInterval: 4000 // Real-time auto-polling every 4 seconds
+    refetchInterval: 4000, // Real-time auto-polling every 4 seconds
   });
 
   async function logout() {
@@ -60,7 +63,9 @@ function AdminDashboard() {
   if (!ready) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <span className="font-mono-meta text-xs uppercase tracking-[0.3em] text-muted-foreground">Verifying…</span>
+        <span className="font-mono-meta text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          Verifying…
+        </span>
       </div>
     );
   }
@@ -73,16 +78,37 @@ function AdminDashboard() {
             <LogoMark className="h-7 w-7" />
             <span className="font-display text-base font-semibold">Welcome Onboard · Admin</span>
           </Link>
-          <button onClick={logout} className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-xs text-foreground/80 hover:bg-muted">
+          <button
+            onClick={logout}
+            className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-xs text-foreground/80 hover:bg-muted"
+          >
             <LogOut className="h-3.5 w-3.5" /> Log out
           </button>
         </div>
       </header>
       <div className="container mx-auto grid gap-8 px-6 py-10 md:grid-cols-[200px_1fr]">
         <aside className="space-y-1">
-          <TabBtn active={tab === "overview"} onClick={() => setTab("overview")} icon={<BarChart3 className="h-4 w-4" />}>Overview</TabBtn>
-          <TabBtn active={tab === "ideas"} onClick={() => setTab("ideas")} icon={<FileText className="h-4 w-4" />}>Event Ideas</TabBtn>
-          <TabBtn active={tab === "registrations"} onClick={() => setTab("registrations")} icon={<Users className="h-4 w-4" />}>Registrations</TabBtn>
+          <TabBtn
+            active={tab === "overview"}
+            onClick={() => setTab("overview")}
+            icon={<BarChart3 className="h-4 w-4" />}
+          >
+            Overview
+          </TabBtn>
+          <TabBtn
+            active={tab === "ideas"}
+            onClick={() => setTab("ideas")}
+            icon={<FileText className="h-4 w-4" />}
+          >
+            Event Ideas
+          </TabBtn>
+          <TabBtn
+            active={tab === "registrations"}
+            onClick={() => setTab("registrations")}
+            icon={<Users className="h-4 w-4" />}
+          >
+            Registrations
+          </TabBtn>
         </aside>
         <section>
           {tab === "overview" && <OverviewPane ideas={ideas.data ?? []} regs={regs.data ?? []} />}
@@ -94,7 +120,17 @@ function AdminDashboard() {
   );
 }
 
-function TabBtn({ active, onClick, icon, children }: { active: boolean; onClick: () => void; icon: React.ReactNode; children: React.ReactNode }) {
+function TabBtn({
+  active,
+  onClick,
+  icon,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}
@@ -102,7 +138,8 @@ function TabBtn({ active, onClick, icon, children }: { active: boolean; onClick:
         active ? "bg-foreground text-background" : "text-foreground/70 hover:bg-muted"
       }`}
     >
-      {icon}{children}
+      {icon}
+      {children}
     </button>
   );
 }
@@ -111,26 +148,40 @@ function OverviewPane({ ideas, regs }: { ideas: any[]; regs: any[] }) {
   const unlocked = regs.filter((r) => r.offer_unlocked).length;
   const compCounts = useMemo(() => {
     const m = new Map<string, number>();
-    regs.forEach((r) => (r.selected_competitions || []).forEach((s: string) => m.set(s, (m.get(s) ?? 0) + 1)));
+    regs.forEach((r) =>
+      (r.selected_competitions || []).forEach((s: string) => m.set(s, (m.get(s) ?? 0) + 1)),
+    );
     return Array.from(m, ([slug, count]) => ({ slug, count })).sort((a, b) => b.count - a.count);
   }, [regs]);
 
   return (
-    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="grid gap-4 sm:grid-cols-3">
         <Stat label="Total registrations" value={regs.length} />
         <Stat label="Offers unlocked" value={unlocked} />
         <Stat label="Event ideas" value={ideas.length} />
       </div>
       <div className="mt-8 rounded-xl border border-border bg-card p-6">
-        <div className="font-mono-meta mb-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Picks by competition</div>
+        <div className="font-mono-meta mb-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+          Picks by competition
+        </div>
         <div className="h-64 w-full">
           <ResponsiveContainer>
             <BarChart data={compCounts}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
               <XAxis dataKey="slug" tick={{ fontSize: 11 }} />
               <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-              <Tooltip contentStyle={{ background: "var(--bg-surface)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+              <Tooltip
+                contentStyle={{
+                  background: "var(--bg-surface)",
+                  border: "1px solid var(--color-border)",
+                  fontSize: 12,
+                }}
+              />
               <Bar dataKey="count" fill="var(--accent-brand)" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -143,7 +194,9 @@ function OverviewPane({ ideas, regs }: { ideas: any[]; regs: any[] }) {
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-xl border border-border bg-card p-6">
-      <div className="font-mono-meta text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{label}</div>
+      <div className="font-mono-meta text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+        {label}
+      </div>
       <div className="font-display mt-3 text-4xl font-semibold tracking-tight">{value}</div>
     </div>
   );
@@ -168,27 +221,68 @@ function exportCsv(filename: string, rows: any[]) {
 function IdeasPane({ rows, loading }: { rows: any[]; loading: boolean }) {
   const [q, setQ] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
-  const filtered = rows.filter((r) => (`${r.name} ${r.email} ${r.idea}`).toLowerCase().includes(q.toLowerCase()));
+  const filtered = rows.filter((r) =>
+    `${r.name} ${r.email} ${r.idea}`.toLowerCase().includes(q.toLowerCase()),
+  );
   return (
     <div>
       <div className="mb-4 flex items-center justify-between gap-3">
-        <input placeholder="Search ideas…" value={q} onChange={(e) => setQ(e.target.value)} className="w-full max-w-xs rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent" />
-        <button onClick={() => exportCsv("event-ideas.csv", filtered)} className="rounded-md border border-border px-3 py-2 text-xs hover:bg-muted">Export CSV</button>
+        <input
+          placeholder="Search ideas…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="w-full max-w-xs rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+        />
+        <button
+          onClick={() => exportCsv("event-ideas.csv", filtered)}
+          className="rounded-md border border-border px-3 py-2 text-xs hover:bg-muted"
+        >
+          Export CSV
+        </button>
       </div>
       <div className="overflow-hidden rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted/40 text-left">
-            <tr><Th>Name</Th><Th>Email</Th><Th>Idea</Th><Th>Submitted</Th></tr>
+            <tr>
+              <Th>Name</Th>
+              <Th>Email</Th>
+              <Th>Idea</Th>
+              <Th>Submitted</Th>
+            </tr>
           </thead>
           <tbody>
-            {loading && <tr><td colSpan={4} className="p-6 text-center text-muted-foreground">Loading…</td></tr>}
-            {!loading && filtered.length === 0 && <tr><td colSpan={4} className="p-6 text-center text-muted-foreground">No submissions yet.</td></tr>}
+            {loading && (
+              <tr>
+                <td colSpan={4} className="p-6 text-center text-muted-foreground">
+                  Loading…
+                </td>
+              </tr>
+            )}
+            {!loading && filtered.length === 0 && (
+              <tr>
+                <td colSpan={4} className="p-6 text-center text-muted-foreground">
+                  No submissions yet.
+                </td>
+              </tr>
+            )}
             {filtered.map((r) => (
-              <tr key={r.id} className="cursor-pointer border-t border-border hover:bg-muted/30" onClick={() => setOpenId(openId === r.id ? null : r.id)}>
+              <tr
+                key={r.id}
+                className="cursor-pointer border-t border-border hover:bg-muted/30"
+                onClick={() => setOpenId(openId === r.id ? null : r.id)}
+              >
                 <Td>{r.name}</Td>
                 <Td>{r.email}</Td>
-                <Td className="max-w-md truncate">{openId === r.id ? <span className="block whitespace-pre-wrap">{r.idea}</span> : r.idea}</Td>
-                <Td className="font-mono-meta whitespace-nowrap text-xs text-muted-foreground">{new Date(r.created_at).toLocaleString()}</Td>
+                <Td className="max-w-md truncate">
+                  {openId === r.id ? (
+                    <span className="block whitespace-pre-wrap">{r.idea}</span>
+                  ) : (
+                    r.idea
+                  )}
+                </Td>
+                <Td className="font-mono-meta whitespace-nowrap text-xs text-muted-foreground">
+                  {new Date(r.created_at).toLocaleString()}
+                </Td>
               </tr>
             ))}
           </tbody>
@@ -200,21 +294,52 @@ function IdeasPane({ rows, loading }: { rows: any[]; loading: boolean }) {
 
 function RegsPane({ rows, loading }: { rows: any[]; loading: boolean }) {
   const [q, setQ] = useState("");
-  const filtered = rows.filter((r) => (`${r.name} ${r.email} ${r.contact ?? ""}`).toLowerCase().includes(q.toLowerCase()));
+  const filtered = rows.filter((r) =>
+    `${r.name} ${r.email} ${r.contact ?? ""}`.toLowerCase().includes(q.toLowerCase()),
+  );
   return (
     <div>
       <div className="mb-4 flex items-center justify-between gap-3">
-        <input placeholder="Search registrations…" value={q} onChange={(e) => setQ(e.target.value)} className="w-full max-w-xs rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent" />
-        <button onClick={() => exportCsv("registrations.csv", filtered)} className="rounded-md border border-border px-3 py-2 text-xs hover:bg-muted">Export CSV</button>
+        <input
+          placeholder="Search registrations…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="w-full max-w-xs rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-accent"
+        />
+        <button
+          onClick={() => exportCsv("registrations.csv", filtered)}
+          className="rounded-md border border-border px-3 py-2 text-xs hover:bg-muted"
+        >
+          Export CSV
+        </button>
       </div>
       <div className="overflow-hidden rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted/40 text-left">
-            <tr><Th>Name</Th><Th>Email</Th><Th>Contact</Th><Th>Picks</Th><Th>Offer</Th><Th>When</Th></tr>
+            <tr>
+              <Th>Name</Th>
+              <Th>Email</Th>
+              <Th>Contact</Th>
+              <Th>Picks</Th>
+              <Th>Offer</Th>
+              <Th>When</Th>
+            </tr>
           </thead>
           <tbody>
-            {loading && <tr><td colSpan={6} className="p-6 text-center text-muted-foreground">Loading…</td></tr>}
-            {!loading && filtered.length === 0 && <tr><td colSpan={6} className="p-6 text-center text-muted-foreground">No registrations yet.</td></tr>}
+            {loading && (
+              <tr>
+                <td colSpan={6} className="p-6 text-center text-muted-foreground">
+                  Loading…
+                </td>
+              </tr>
+            )}
+            {!loading && filtered.length === 0 && (
+              <tr>
+                <td colSpan={6} className="p-6 text-center text-muted-foreground">
+                  No registrations yet.
+                </td>
+              </tr>
+            )}
             {filtered.map((r) => (
               <tr key={r.id} className="border-t border-border hover:bg-muted/30">
                 <Td>{r.name}</Td>
@@ -223,12 +348,27 @@ function RegsPane({ rows, loading }: { rows: any[]; loading: boolean }) {
                 <Td>
                   <div className="flex flex-wrap gap-1">
                     {(r.selected_competitions ?? []).map((s: string) => (
-                      <span key={s} className="font-mono-meta rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-[0.15em]">{s}</span>
+                      <span
+                        key={s}
+                        className="font-mono-meta rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-[0.15em]"
+                      >
+                        {s}
+                      </span>
                     ))}
                   </div>
                 </Td>
-                <Td>{r.offer_unlocked ? <span className="rounded bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">₹{r.offer_amount}</span> : "—"}</Td>
-                <Td className="font-mono-meta whitespace-nowrap text-xs text-muted-foreground">{new Date(r.created_at).toLocaleString()}</Td>
+                <Td>
+                  {r.offer_unlocked ? (
+                    <span className="rounded bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+                      ₹{r.offer_amount}
+                    </span>
+                  ) : (
+                    "—"
+                  )}
+                </Td>
+                <Td className="font-mono-meta whitespace-nowrap text-xs text-muted-foreground">
+                  {new Date(r.created_at).toLocaleString()}
+                </Td>
               </tr>
             ))}
           </tbody>
@@ -239,7 +379,11 @@ function RegsPane({ rows, loading }: { rows: any[]; loading: boolean }) {
 }
 
 function Th({ children }: { children: React.ReactNode }) {
-  return <th className="font-mono-meta px-4 py-3 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">{children}</th>;
+  return (
+    <th className="font-mono-meta px-4 py-3 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+      {children}
+    </th>
+  );
 }
 function Td({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <td className={`px-4 py-3 align-top ${className}`}>{children}</td>;

@@ -30,10 +30,10 @@ const wipeVariants = {
 };
 
 const fadeVariants = {
-  enter:   { opacity: 1, transition: { duration: 0.2 } },
-  idle:    { opacity: 1, transition: { duration: 0.2 } },
+  enter: { opacity: 1, transition: { duration: 0.2 } },
+  idle: { opacity: 1, transition: { duration: 0.2 } },
   initial: { opacity: 0 },
-  exit:    { opacity: 0, transition: { duration: 0.15 } },
+  exit: { opacity: 0, transition: { duration: 0.15 } },
 };
 
 export function WipeText({ text, cardRef, image }: WipeTextProps) {

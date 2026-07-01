@@ -22,7 +22,6 @@ export function HoverActivities() {
       aria-label="Explore Activities"
     >
       <div className="ha-container">
-
         {/* ─── Section header — above the dark card, no hover interaction ─── */}
         <motion.div
           className="ha-section-header"
@@ -32,7 +31,9 @@ export function HoverActivities() {
         >
           <p className="ha-eyebrow">EXPLORE · ACTIVITIES</p>
           <h2 className="ha-headline">
-            Six Arenas.<br />One Stage.
+            Six Arenas.
+            <br />
+            One Stage.
           </h2>
         </motion.div>
 
@@ -43,15 +44,14 @@ export function HoverActivities() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          style={{
-            ["--ha-bg-hint" as string]: hoveredActivity?.bgHint ?? "transparent",
-          } as React.CSSProperties}
+          style={
+            {
+              ["--ha-bg-hint" as string]: hoveredActivity?.bgHint ?? "transparent",
+            } as React.CSSProperties
+          }
           // Clicking the card background (not a thumb) deactivates on mobile
           onPointerDown={(e) => {
-            if (
-              e.pointerType !== "mouse" &&
-              !(e.target as HTMLElement).closest(".ha-thumb")
-            ) {
+            if (e.pointerType !== "mouse" && !(e.target as HTMLElement).closest(".ha-thumb")) {
               setHoveredId(null);
             }
           }}
@@ -83,7 +83,6 @@ export function HoverActivities() {
             />
           </div>
         </motion.div>
-
       </div>
     </section>
   );

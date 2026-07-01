@@ -20,7 +20,6 @@ export function WhyCompetitions() {
   return (
     <section id="why" className="relative py-32" ref={ref}>
       <div className="container mx-auto grid gap-16 px-6 md:grid-cols-2">
-
         {/* ── Left: copy + events ── */}
         <div className="flex flex-col justify-center gap-6">
           <PulloutReveal>
@@ -29,23 +28,37 @@ export function WhyCompetitions() {
               02 / 06 — What We Do
             </span>
             <h2 className="font-display mb-6 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-              Where curiosity<br />gets competitive.
+              Where curiosity
+              <br />
+              gets competitive.
             </h2>
           </PulloutReveal>
 
           <HorizontalTextReveal className="text-lg leading-relaxed text-foreground/80 md:text-xl">
             Welcome Onboard isn't just another competitions program.
           </HorizontalTextReveal>
-          <HorizontalTextReveal className="text-lg leading-relaxed text-foreground/80 md:text-xl" staggerDelay={0.05}>
+          <HorizontalTextReveal
+            className="text-lg leading-relaxed text-foreground/80 md:text-xl"
+            staggerDelay={0.05}
+          >
             We bring schools a lineup of high-energy events — each designed
           </HorizontalTextReveal>
-          <HorizontalTextReveal className="text-lg leading-relaxed text-foreground/80 md:text-xl" staggerDelay={0.05}>
+          <HorizontalTextReveal
+            className="text-lg leading-relaxed text-foreground/80 md:text-xl"
+            staggerDelay={0.05}
+          >
             to challenge young minds and let their talent take the spotlight.
           </HorizontalTextReveal>
-          <HorizontalTextReveal className="text-base leading-relaxed text-foreground/60 md:text-lg" staggerDelay={0.04}>
+          <HorizontalTextReveal
+            className="text-base leading-relaxed text-foreground/60 md:text-lg"
+            staggerDelay={0.04}
+          >
             Every competition is built with one goal: make learning feel
           </HorizontalTextReveal>
-          <HorizontalTextReveal className="text-base leading-relaxed text-foreground/60 md:text-lg" staggerDelay={0.04}>
+          <HorizontalTextReveal
+            className="text-base leading-relaxed text-foreground/60 md:text-lg"
+            staggerDelay={0.04}
+          >
             like an adventure worth showing up for.
           </HorizontalTextReveal>
 
@@ -65,11 +78,17 @@ export function WhyCompetitions() {
                 key={label}
                 variants={{
                   hidden: { opacity: 0, y: 12 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                  },
                 }}
                 className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-sm"
               >
-                <span className="text-xl leading-none" aria-hidden>{emoji}</span>
+                <span className="text-xl leading-none" aria-hidden>
+                  {emoji}
+                </span>
                 <span className="font-mono-meta text-xs font-medium uppercase tracking-[0.2em] text-foreground/80">
                   {label}
                 </span>
@@ -87,7 +106,9 @@ export function WhyCompetitions() {
                 "radial-gradient(circle at 30% 25%, rgba(255,120,60,0.22), transparent 60%), linear-gradient(160deg, #1a1410 0%, #2a1a12 60%, #3a2418 100%)",
             }}
           >
-            <Suspense fallback={<div className="h-full w-full bg-[#1e1713]/40 animate-pulse rounded-2xl" />}>
+            <Suspense
+              fallback={<div className="h-full w-full bg-[#1e1713]/40 animate-pulse rounded-2xl" />}
+            >
               <Lanyard
                 position={[0, 0, 18]}
                 gravity={[0, -40, 0]}

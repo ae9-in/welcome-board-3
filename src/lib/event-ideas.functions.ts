@@ -12,7 +12,7 @@ export const submitEventIdea = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Schema.parse(data))
   .handler(async ({ data }) => {
     await ensureTables();
-    
+
     try {
       await sql`
         INSERT INTO event_ideas (name, email, idea)

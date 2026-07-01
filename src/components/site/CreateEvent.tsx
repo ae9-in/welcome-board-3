@@ -35,9 +35,12 @@ export function CreateEvent() {
             Have an idea and don't know how to execute it?
           </h2>
           <p className="text-lg leading-relaxed text-foreground/70">
-            Let us know. We've staged everything from quiz nights to overnight hackathons — if you can describe it, we can probably build it with you.
+            Let us know. We've staged everything from quiz nights to overnight hackathons — if you
+            can describe it, we can probably build it with you.
           </p>
-          <p className="mt-3 text-sm text-muted-foreground">Tell us roughly what you're imagining. We'll come back with a plan, not a brochure.</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Tell us roughly what you're imagining. We'll come back with a plan, not a brochure.
+          </p>
         </PulloutReveal>
 
         <div className="relative">
@@ -46,14 +49,37 @@ export function CreateEvent() {
               <motion.form
                 key="form"
                 onSubmit={onSubmit}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="space-y-8"
               >
-                <FloatingField label="Your name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
-                <FloatingField label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
-                <FloatingField label="Your idea" textarea value={form.idea} onChange={(v) => setForm({ ...form, idea: v })} required />
-                {state === "error" && <p className="text-sm text-destructive">{errMsg || "Couldn't submit. Try again."}</p>}
+                <FloatingField
+                  label="Your name"
+                  value={form.name}
+                  onChange={(v) => setForm({ ...form, name: v })}
+                  required
+                />
+                <FloatingField
+                  label="Email"
+                  type="email"
+                  value={form.email}
+                  onChange={(v) => setForm({ ...form, email: v })}
+                  required
+                />
+                <FloatingField
+                  label="Your idea"
+                  textarea
+                  value={form.idea}
+                  onChange={(v) => setForm({ ...form, idea: v })}
+                  required
+                />
+                {state === "error" && (
+                  <p className="text-sm text-destructive">
+                    {errMsg || "Couldn't submit. Try again."}
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={state === "loading"}
@@ -68,17 +94,39 @@ export function CreateEvent() {
             ) : (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col items-start"
               >
                 <svg width="64" height="64" viewBox="0 0 64 64" className="mb-6">
-                  <motion.circle cx="32" cy="32" r="28" fill="none" stroke="var(--accent-brand)" strokeWidth="1.5"
-                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, ease: "easeOut" }} />
-                  <motion.path d="M20 33 L29 42 L45 23" fill="none" stroke="var(--accent-brand)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }} />
+                  <motion.circle
+                    cx="32"
+                    cy="32"
+                    r="28"
+                    fill="none"
+                    stroke="var(--accent-brand)"
+                    strokeWidth="1.5"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                  />
+                  <motion.path
+                    d="M20 33 L29 42 L45 23"
+                    fill="none"
+                    stroke="var(--accent-brand)"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+                  />
                 </svg>
-                <h3 className="font-display text-3xl font-semibold tracking-tight">Your idea has been heard.</h3>
+                <h3 className="font-display text-3xl font-semibold tracking-tight">
+                  Your idea has been heard.
+                </h3>
                 <p className="mt-2 text-base text-muted-foreground">We'll be in touch soon.</p>
               </motion.div>
             )}
@@ -90,13 +138,28 @@ export function CreateEvent() {
 }
 
 function FloatingField({
-  label, value, onChange, type = "text", textarea, required,
-}: { label: string; value: string; onChange: (v: string) => void; type?: string; textarea?: boolean; required?: boolean }) {
+  label,
+  value,
+  onChange,
+  type = "text",
+  textarea,
+  required,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  textarea?: boolean;
+  required?: boolean;
+}) {
   const has = value.length > 0;
   return (
     <label className="group relative block">
-      <span className={`pointer-events-none absolute left-0 transition-all duration-300 ${has ? "-top-3 text-xs text-accent" : "top-3 text-sm text-muted-foreground"}`}>
-        {label}{required ? " *" : ""}
+      <span
+        className={`pointer-events-none absolute left-0 transition-all duration-300 ${has ? "-top-3 text-xs text-accent" : "top-3 text-sm text-muted-foreground"}`}
+      >
+        {label}
+        {required ? " *" : ""}
       </span>
       {textarea ? (
         <textarea

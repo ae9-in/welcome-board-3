@@ -20,7 +20,11 @@ const defaultColors = ["#ffffff"];
 
 function hexToRgb(hex: string): [number, number, number] {
   let h = hex.replace(/^#/, "");
-  if (h.length === 3) h = h.split("").map((c) => c + c).join("");
+  if (h.length === 3)
+    h = h
+      .split("")
+      .map((c) => c + c)
+      .join("");
   const int = parseInt(h, 16);
   return [((int >> 16) & 255) / 255, ((int >> 8) & 255) / 255, (int & 255) / 255];
 }
@@ -132,7 +136,10 @@ export default function Particles({
       const colors = new Float32Array(count * 3);
       const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
       for (let i = 0; i < count; i++) {
-        let x = 0, y = 0, z = 0, len = 0;
+        let x = 0,
+          y = 0,
+          z = 0,
+          len = 0;
         do {
           x = Math.random() * 2 - 1;
           y = Math.random() * 2 - 1;
@@ -152,7 +159,8 @@ export default function Particles({
         color: { size: 3, data: colors },
       });
       const program = new Program(gl, {
-        vertex, fragment,
+        vertex,
+        fragment,
         uniforms: {
           uTime: { value: 0 },
           uSpread: { value: particleSpread },
@@ -232,7 +240,19 @@ export default function Particles({
       cleanup?.();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [particleCount, particleSpread, speed, moveParticlesOnHover, particleHoverFactor, alphaParticles, particleBaseSize, sizeRandomness, cameraDistance, disableRotation, pixelRatio]);
+  }, [
+    particleCount,
+    particleSpread,
+    speed,
+    moveParticlesOnHover,
+    particleHoverFactor,
+    alphaParticles,
+    particleBaseSize,
+    sizeRandomness,
+    cameraDistance,
+    disableRotation,
+    pixelRatio,
+  ]);
 
   return (
     <div

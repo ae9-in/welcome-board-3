@@ -42,7 +42,11 @@ export function ActivityThumb({
         // Only fire for touch/pen
         if (e.pointerType !== "mouse") {
           e.preventDefault();
-          isActive ? onLeave() : onHover();
+          if (isActive) {
+            onLeave();
+          } else {
+            onHover();
+          }
         }
       }}
       // Keyboard
@@ -54,8 +58,8 @@ export function ActivityThumb({
         filter: isActive
           ? "brightness(1.1)"
           : isDimmed
-          ? "brightness(0.45) saturate(0.5)"
-          : "brightness(1) saturate(1)",
+            ? "brightness(0.45) saturate(0.5)"
+            : "brightness(1) saturate(1)",
         boxShadow: isActive
           ? `0 0 0 2.5px ${activity.accentColor}, 0 10px 36px rgba(0,0,0,0.6)`
           : "0 0 0 2px transparent",
@@ -67,12 +71,7 @@ export function ActivityThumb({
         boxShadow: { duration: 0.22, ease: "easeOut" },
       }}
     >
-      <img
-        src={activity.image}
-        alt={activity.name}
-        loading="lazy"
-        draggable={false}
-      />
+      <img src={activity.image} alt={activity.name} loading="lazy" draggable={false} />
     </motion.div>
   );
 }

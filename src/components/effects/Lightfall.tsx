@@ -12,7 +12,10 @@ const hexToRGB = (hex: string): [number, number, number] => {
 };
 
 const prepColors = (input?: string[]) => {
-  const base = (input && input.length ? input : ["#A6C8FF", "#5227FF", "#FF9FFC"]).slice(0, MAX_COLORS);
+  const base = (input && input.length ? input : ["#A6C8FF", "#5227FF", "#FF9FFC"]).slice(
+    0,
+    MAX_COLORS,
+  );
   const count = base.length;
   const arr: [number, number, number][] = [];
   for (let i = 0; i < MAX_COLORS; i++) arr.push(hexToRGB(base[Math.min(i, base.length - 1)]));
@@ -200,8 +203,14 @@ export default function Lightfall({
       iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
       iMouse: { value: [0, 0] },
       iTime: { value: 0 },
-      uColor0: { value: arr[0] }, uColor1: { value: arr[1] }, uColor2: { value: arr[2] }, uColor3: { value: arr[3] },
-      uColor4: { value: arr[4] }, uColor5: { value: arr[5] }, uColor6: { value: arr[6] }, uColor7: { value: arr[7] },
+      uColor0: { value: arr[0] },
+      uColor1: { value: arr[1] },
+      uColor2: { value: arr[2] },
+      uColor3: { value: arr[3] },
+      uColor4: { value: arr[4] },
+      uColor5: { value: arr[5] },
+      uColor6: { value: arr[6] },
+      uColor7: { value: arr[7] },
       uColorCount: { value: count },
       uBgColor: { value: hexToRGB(backgroundColor) },
       uMouseColor: { value: avg },
@@ -250,13 +259,18 @@ export default function Lightfall({
       visibleRef.current = entries[0]?.isIntersecting ?? true;
     });
     io.observe(container);
-    const onVis = () => { visibleRef.current = !document.hidden; };
+    const onVis = () => {
+      visibleRef.current = !document.hidden;
+    };
     document.addEventListener("visibilitychange", onVis);
 
     let lastTime = 0;
     const loop = (t: number) => {
       rafRef.current = requestAnimationFrame(loop);
-      if (!visibleRef.current || paused) { lastTime = t; return; }
+      if (!visibleRef.current || paused) {
+        lastTime = t;
+        return;
+      }
       (uniforms.iTime.value as number) = t * 0.001;
       if (mouseDampening > 0) {
         if (!lastTime) lastTime = t;
@@ -271,7 +285,11 @@ export default function Lightfall({
       } else {
         lastTime = t;
       }
-      try { renderer.render({ scene: mesh }); } catch (e) { console.error(e); }
+      try {
+        renderer.render({ scene: mesh });
+      } catch (e) {
+        console.error(e);
+      }
     };
     rafRef.current = requestAnimationFrame(loop);
 
@@ -284,9 +302,24 @@ export default function Lightfall({
       if (canvas.parentElement === container) container.removeChild(canvas);
     };
   }, [
-    dpr, paused, colors, backgroundColor, speed, streakCount, streakWidth, streakLength,
-    glow, density, twinkle, zoom, backgroundGlow, opacity,
-    mouseInteraction, mouseStrength, mouseRadius, mouseDampening,
+    dpr,
+    paused,
+    colors,
+    backgroundColor,
+    speed,
+    streakCount,
+    streakWidth,
+    streakLength,
+    glow,
+    density,
+    twinkle,
+    zoom,
+    backgroundGlow,
+    opacity,
+    mouseInteraction,
+    mouseStrength,
+    mouseRadius,
+    mouseDampening,
   ]);
 
   return (

@@ -2,10 +2,10 @@ export interface Activity {
   id: string;
   slug: string;
   name: string;
-  displayName: string;   // ALL CAPS — used in the massive card FitText
+  displayName: string; // ALL CAPS — used in the massive card FitText
   image: string;
-  accentColor: string;   // Per-activity accent, used only for hover ring
-  bgHint: string;        // Very faint tint overlay on dark card when active
+  accentColor: string; // Per-activity accent, used only for hover ring
+  bgHint: string; // Very faint tint overlay on dark card when active
 }
 
 export const ACTIVITIES: Activity[] = [

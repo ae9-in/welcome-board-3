@@ -33,22 +33,32 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-2">
           <LogoMark className="h-8 w-8 object-contain" />
-          <span className="font-display text-lg font-semibold tracking-tight text-foreground">Welcome Onboard</span>
+          <span className="font-display text-lg font-semibold tracking-tight text-foreground">
+            Welcome Onboard
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
           {links.slice(0, 4).map((l) =>
             l.to.startsWith("/#") ? (
-              <a key={l.to} href={l.to} className="group relative text-sm text-foreground/80 transition-colors hover:text-foreground">
+              <a
+                key={l.to}
+                href={l.to}
+                className="group relative text-sm text-foreground/80 transition-colors hover:text-foreground"
+              >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
               </a>
             ) : (
-              <Link key={l.to} to={l.to} className="group relative text-sm text-foreground/80 transition-colors hover:text-foreground">
+              <Link
+                key={l.to}
+                to={l.to}
+                className="group relative text-sm text-foreground/80 transition-colors hover:text-foreground"
+              >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
               </Link>
-            )
+            ),
           )}
         </nav>
 
@@ -96,7 +106,9 @@ export function Navbar() {
                 </motion.a>
               ))}
             </nav>
-            <div className="mt-auto"><ThemeToggle /></div>
+            <div className="mt-auto">
+              <ThemeToggle />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

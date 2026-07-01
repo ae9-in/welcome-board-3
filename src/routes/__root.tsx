@@ -83,10 +83,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Welcome Onboard — School Competitions" },
-      { name: "description", content: "Six competitions. One stage. Learn, compete, shine — Welcome Onboard Grandly." },
+      {
+        name: "description",
+        content: "Six competitions. One stage. Learn, compete, shine — Welcome Onboard Grandly.",
+      },
       { name: "author", content: "Welcome Onboard" },
       { property: "og:title", content: "Welcome Onboard — School Competitions" },
-      { property: "og:description", content: "Six competitions. One stage. Learn, compete, shine." },
+      {
+        property: "og:description",
+        content: "Six competitions. One stage. Learn, compete, shine.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },

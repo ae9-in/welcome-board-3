@@ -27,14 +27,12 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7, className }: CrowdCanvasProps) 
     };
 
     // UTILS
-    const randomRange = (min: number, max: number) =>
-      min + Math.random() * (max - min);
+    const randomRange = (min: number, max: number) => min + Math.random() * (max - min);
     const randomIndex = (array: any[]) => randomRange(0, array.length) | 0;
     const removeFromArray = (array: any[], i: number) => array.splice(i, 1)[0];
     const removeItemFromArray = (array: any[], item: any) =>
       removeFromArray(array, array.indexOf(item));
-    const removeRandomFromArray = (array: any[]) =>
-      removeFromArray(array, randomIndex(array));
+    const removeRandomFromArray = (array: any[]) => removeFromArray(array, randomIndex(array));
     const getRandomFromArray = (array: any[]) => array[randomIndex(array) | 0];
 
     // TWEEN FACTORIES
@@ -115,13 +113,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7, className }: CrowdCanvasProps) 
     };
 
     // FACTORY FUNCTIONS
-    const createPeep = ({
-      image,
-      rect,
-    }: {
-      image: HTMLImageElement;
-      rect: number[];
-    }): Peep => {
+    const createPeep = ({ image, rect }: { image: HTMLImageElement; rect: number[] }): Peep => {
       const peep: Peep = {
         image,
         rect: [],
@@ -185,12 +177,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7, className }: CrowdCanvasProps) 
         allPeeps.push(
           createPeep({
             image: img,
-            rect: [
-              (i % rows) * rectWidth,
-              ((i / rows) | 0) * rectHeight,
-              rectWidth,
-              rectHeight,
-            ],
+            rect: [(i % rows) * rectWidth, ((i / rows) | 0) * rectHeight, rectWidth, rectHeight],
           }),
         );
       }
@@ -280,9 +267,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7, className }: CrowdCanvasProps) 
     };
   }, [src, rows, cols]);
 
-  return (
-    <canvas ref={canvasRef} className={className || "absolute bottom-0 h-[90vh] w-full"} />
-  );
+  return <canvas ref={canvasRef} className={className || "absolute bottom-0 h-[90vh] w-full"} />;
 };
 
 const Skiper39 = () => {

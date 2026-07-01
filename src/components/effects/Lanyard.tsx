@@ -51,7 +51,7 @@ export default function Lanyard(props: LanyardProps) {
     lanyardWidth = 1,
   } = props;
   const [isMobile, setIsMobile] = useState(
-    () => typeof window !== "undefined" && window.innerWidth < 768
+    () => typeof window !== "undefined" && window.innerWidth < 768,
   );
   const [mounted, setMounted] = useState(false);
   const [ctxNonce, setCtxNonce] = useState(0);
@@ -84,22 +84,46 @@ export default function Lanyard(props: LanyardProps) {
       >
         <ambientLight intensity={Math.PI} />
         <Suspense fallback={null}>
-        <Physics gravity={gravity} timeStep={1 / 60} interpolate={false}>
-          <Band
-            isMobile={isMobile}
-            frontImage={frontImage}
-            backImage={backImage}
-            imageFit={imageFit}
-            lanyardImage={lanyardImage}
-            lanyardWidth={lanyardWidth}
-          />
-        </Physics>
-        <Environment blur={0.75}>
-          <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-          <Lightformer intensity={3} color="white" position={[-1, -1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-          <Lightformer intensity={3} color="white" position={[1, 1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-          <Lightformer intensity={10} color="white" position={[-10, 0, 14]} rotation={[0, Math.PI / 2, Math.PI / 3]} scale={[100, 10, 1]} />
-        </Environment>
+          <Physics gravity={gravity} timeStep={1 / 60} interpolate={false}>
+            <Band
+              isMobile={isMobile}
+              frontImage={frontImage}
+              backImage={backImage}
+              imageFit={imageFit}
+              lanyardImage={lanyardImage}
+              lanyardWidth={lanyardWidth}
+            />
+          </Physics>
+          <Environment blur={0.75}>
+            <Lightformer
+              intensity={2}
+              color="white"
+              position={[0, -1, 5]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="white"
+              position={[-1, -1, 1]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="white"
+              position={[1, 1, 1]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={10}
+              color="white"
+              position={[-10, 0, 14]}
+              rotation={[0, Math.PI / 2, Math.PI / 3]}
+              scale={[100, 10, 1]}
+            />
+          </Environment>
         </Suspense>
       </Canvas>
     </div>
@@ -189,7 +213,7 @@ function Band({
         new THREE.Vector3(),
         new THREE.Vector3(),
         new THREE.Vector3(),
-      ])
+      ]),
   );
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
@@ -227,11 +251,11 @@ function Band({
           ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
         const clampedDistance = Math.max(
           0.1,
-          Math.min(1, ref.current.lerped.distanceTo(ref.current.translation()))
+          Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())),
         );
         ref.current.lerped.lerp(
           ref.current.translation(),
-          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
+          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)),
         );
       });
       curve.points[0].copy(j3.current.translation());
@@ -289,7 +313,11 @@ function Band({
                 metalness={0.5}
               />
             </mesh>
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
+            <mesh
+              geometry={nodes.clip.geometry}
+              material={materials.metal}
+              material-roughness={0.3}
+            />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
           </group>
         </RigidBody>

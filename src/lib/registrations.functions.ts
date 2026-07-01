@@ -14,7 +14,7 @@ export const submitRegistration = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     await ensureTables();
     const offer_unlocked = data.selected_competitions.length >= 6;
-    
+
     try {
       await sql`
         INSERT INTO registrations (name, email, contact, selected_competitions, offer_unlocked, offer_amount)

@@ -12,7 +12,10 @@ export function PulloutLoader() {
     if (firstMount) {
       const t = setTimeout(() => setShow(false), 1100);
       const t2 = setTimeout(() => setFirstMount(false), 1500);
-      return () => { clearTimeout(t); clearTimeout(t2); };
+      return () => {
+        clearTimeout(t);
+        clearTimeout(t2);
+      };
     }
   }, [firstMount]);
 
@@ -21,7 +24,10 @@ export function PulloutLoader() {
     if (status === "pending") {
       const delay = setTimeout(() => setShow(true), 250);
       const hide = setTimeout(() => setShow(false), 900);
-      return () => { clearTimeout(delay); clearTimeout(hide); };
+      return () => {
+        clearTimeout(delay);
+        clearTimeout(hide);
+      };
     } else {
       setShow(false);
     }
@@ -55,7 +61,12 @@ export function PulloutLoader() {
           className="pointer-events-none fixed bottom-6 right-6 z-[200]"
           initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: 8, filter: "blur(6px)", transition: { duration: 0.35, ease: [0.7, 0, 0.84, 0] } }}
+          exit={{
+            opacity: 0,
+            y: 8,
+            filter: "blur(6px)",
+            transition: { duration: 0.35, ease: [0.7, 0, 0.84, 0] },
+          }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex items-center gap-3 rounded-full border border-border bg-background/80 px-4 py-2 text-foreground shadow-lg backdrop-blur-xl scale-75 origin-bottom-right">

@@ -128,7 +128,7 @@ export function LadderScrollbar() {
         idleTimer.current = window.setTimeout(() => {
           const nearestRungIndex = Math.min(
             rungs - 1,
-            Math.max(0, Math.round((rawY - 0.5 * rungGap) / rungGap))
+            Math.max(0, Math.round((rawY - 0.5 * rungGap) / rungGap)),
           );
           const nearestRung = (nearestRungIndex + 0.5) * rungGap;
 
@@ -174,11 +174,7 @@ export function LadderScrollbar() {
       style={{ top: 88, bottom: 88 }}
       aria-hidden="true"
     >
-      <svg
-        viewBox={`0 0 ${VB_W} ${VB_H}`}
-        preserveAspectRatio="none"
-        className="h-full w-[34px]"
-      >
+      <svg viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="none" className="h-full w-[34px]">
         <defs>
           <linearGradient id="rail-wood" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="var(--accent-deep, #3b2a1a)" stopOpacity="0.85" />
@@ -192,16 +188,46 @@ export function LadderScrollbar() {
         </defs>
 
         {/* Side rails */}
-        <rect x={railL - 3} y="0" width="6" height={VB_H} rx="2" fill="url(#rail-wood)" opacity="0.9" />
-        <rect x={railR - 3} y="0" width="6" height={VB_H} rx="2" fill="url(#rail-wood)" opacity="0.9" />
+        <rect
+          x={railL - 3}
+          y="0"
+          width="6"
+          height={VB_H}
+          rx="2"
+          fill="url(#rail-wood)"
+          opacity="0.9"
+        />
+        <rect
+          x={railR - 3}
+          y="0"
+          width="6"
+          height={VB_H}
+          rx="2"
+          fill="url(#rail-wood)"
+          opacity="0.9"
+        />
 
         {/* Rungs */}
         {Array.from({ length: rungs }).map((_, i) => {
           const y = (i + 0.5) * rungGap;
           return (
             <g key={i}>
-              <rect x={railL - 2} y={y - 1.6} width={railR - railL + 4} height="3.2" rx="1.2" fill="url(#rung-wood)" />
-              <rect x={railL - 2} y={y + 1.4} width={railR - railL + 4} height="0.6" fill="#000" opacity="0.18" />
+              <rect
+                x={railL - 2}
+                y={y - 1.6}
+                width={railR - railL + 4}
+                height="3.2"
+                rx="1.2"
+                fill="url(#rung-wood)"
+              />
+              <rect
+                x={railL - 2}
+                y={y + 1.4}
+                width={railR - railL + 4}
+                height="0.6"
+                fill="#000"
+                opacity="0.18"
+              />
             </g>
           );
         })}
@@ -219,11 +245,7 @@ export function LadderScrollbar() {
         />
 
         {/* Climber */}
-        <g
-          ref={climberRef}
-          transform="translate(30, 24)"
-          style={{ transformOrigin: "0px 0px" }}
-        >
+        <g ref={climberRef} transform="translate(30, 24)" style={{ transformOrigin: "0px 0px" }}>
           {/* shadow on rung */}
           <ellipse cx="0" cy="22" rx="9" ry="1.6" fill="#000" opacity="0.18" />
 
@@ -269,7 +291,15 @@ export function LadderScrollbar() {
 
           {/* Head */}
           <circle cx="0" cy="-13" r="4.4" fill="var(--accent-brand)" />
-          <circle cx="0" cy="-13" r="4.4" fill="none" stroke="#000" strokeOpacity="0.15" strokeWidth="0.6" />
+          <circle
+            cx="0"
+            cy="-13"
+            r="4.4"
+            fill="none"
+            stroke="#000"
+            strokeOpacity="0.15"
+            strokeWidth="0.6"
+          />
         </g>
       </svg>
     </div>

@@ -13,7 +13,7 @@ let tablesEnsured = false;
 // Simple table initialization to ensure tables exist in Neon PostgreSQL
 export async function ensureTables() {
   if (tablesEnsured) return;
-  
+
   try {
     // 1. Registrations table
     await sql`
@@ -49,7 +49,7 @@ export async function ensureTables() {
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       )
     `;
-    
+
     tablesEnsured = true;
     console.log("[Database] Neon database tables verified/created successfully.");
   } catch (error) {

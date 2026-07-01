@@ -16,49 +16,52 @@ export function FitText({ text, isIdle, cardRef, image }: FitTextProps) {
   const suppressRO = useRef(false);
   const rafRef = useRef<number | null>(null);
 
-  const fit = useCallback((fromObserver = false) => {
-    if (fromObserver && suppressRO.current) return;
+  const fit = useCallback(
+    (fromObserver = false) => {
+      if (fromObserver && suppressRO.current) return;
 
-    const textEl = textRef.current;
-    const cardEl = cardRef.current;
-    if (!textEl || !cardEl) return;
+      const textEl = textRef.current;
+      const cardEl = cardRef.current;
+      if (!textEl || !cardEl) return;
 
-    // Check cache first to avoid layout measurement reflows entirely
-    const cacheKey = `${text}-${cardEl.offsetWidth}`;
-    if (fontSizeCache.has(cacheKey)) {
-      textEl.style.fontSize = fontSizeCache.get(cacheKey)!;
+      // Check cache first to avoid layout measurement reflows entirely
+      const cacheKey = `${text}-${cardEl.offsetWidth}`;
+      if (fontSizeCache.has(cacheKey)) {
+        textEl.style.fontSize = fontSizeCache.get(cacheKey)!;
+        textEl.style.display = "inline-block";
+        return;
+      }
+
+      const styles = getComputedStyle(cardEl);
+      const paddingLeft = parseFloat(styles.paddingLeft);
+      const paddingRight = parseFloat(styles.paddingRight);
+      const availableWidth = cardEl.offsetWidth - paddingLeft - paddingRight;
+
+      if (availableWidth <= 0) return;
+
+      // Measure text width by scaling to baseline
       textEl.style.display = "inline-block";
-      return;
-    }
+      textEl.style.fontSize = "100px";
+      textEl.style.whiteSpace = "nowrap";
 
-    const styles = getComputedStyle(cardEl);
-    const paddingLeft = parseFloat(styles.paddingLeft);
-    const paddingRight = parseFloat(styles.paddingRight);
-    const availableWidth = cardEl.offsetWidth - paddingLeft - paddingRight;
+      const naturalWidth = textEl.getBoundingClientRect().width;
 
-    if (availableWidth <= 0) return;
+      if (naturalWidth === 0) {
+        textEl.style.display = "block";
+        return;
+      }
 
-    // Measure text width by scaling to baseline
-    textEl.style.display = "inline-block";
-    textEl.style.fontSize = "100px";
-    textEl.style.whiteSpace = "nowrap";
+      const scaledSize = (availableWidth / naturalWidth) * 100;
+      const finalSize = `${Math.min(scaledSize, 320)}px`;
 
-    const naturalWidth = textEl.getBoundingClientRect().width;
+      textEl.style.fontSize = finalSize;
+      textEl.style.display = "inline-block";
 
-    if (naturalWidth === 0) {
-      textEl.style.display = "block";
-      return;
-    }
-
-    const scaledSize = (availableWidth / naturalWidth) * 100;
-    const finalSize = `${Math.min(scaledSize, 320)}px`;
-    
-    textEl.style.fontSize = finalSize;
-    textEl.style.display = "inline-block";
-
-    // Cache the calculated size
-    fontSizeCache.set(cacheKey, finalSize);
-  }, [cardRef]);
+      // Cache the calculated size
+      fontSizeCache.set(cacheKey, finalSize);
+    },
+    [cardRef],
+  );
 
   // Direct call — always runs, never suppressed
   useLayoutEffect(() => {
@@ -108,14 +111,18 @@ export function FitText({ text, isIdle, cardRef, image }: FitTextProps) {
         letterSpacing: "-0.03em",
         textTransform: "uppercase",
         userSelect: "none",
-        
+
         backgroundImage: hasBgImage ? `url(${image})` : undefined,
         backgroundSize: hasBgImage ? "cover" : undefined,
         backgroundPosition: hasBgImage ? "center 40%" : undefined,
         WebkitBackgroundClip: hasBgImage ? "text" : undefined,
         backgroundClip: hasBgImage ? "text" : undefined,
-        color: hasBgImage ? "transparent" : (isIdle ? "rgba(255,255,255,0.12)" : "#FFFFFF"),
-        
+        color: hasBgImage
+          ? "transparent"
+          : isIdle
+            ? "var(--ha-card-text-idle)"
+            : "var(--ha-card-text-active)",
+
         transition: "color 300ms ease",
       }}
     >

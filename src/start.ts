@@ -4,7 +4,7 @@ import { renderErrorPage } from "./lib/error-page";
 import { attachLocalAuth } from "@/lib/auth";
 
 const csrfMiddleware = createCsrfMiddleware({
-  filter: (ctx) => ctx.handlerType === 'serverFn',
+  filter: (ctx) => ctx.handlerType === "serverFn",
 });
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
